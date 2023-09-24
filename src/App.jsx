@@ -1,4 +1,4 @@
-import { Post } from './post';
+import { Post } from './components/Post';
 import { Header } from './components/header';
 import './global.css'
 import styles from './App.module.css'
