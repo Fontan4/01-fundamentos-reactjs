@@ -3,27 +3,31 @@ import ptBR from 'date-fns/locale/pt-BR';
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 import styles from './Post.module.css';
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 
-export function Post ({ author, publishedAt, content }) {
+interface Author {
+    name: string;
+    role: string;
+    avatarUrl: string;
+}
 
-    Post.propTypes = {
-        author: PropTypes.shape({
-          name: PropTypes.string.isRequired,
-          role: PropTypes.string.isRequired,
-          avatarUrl: PropTypes.string,
-        }).isRequired,
-        content: PropTypes.arrayOf(
-          PropTypes.shape({
-            type: PropTypes.string.isRequired,
-            content: PropTypes.string.isRequired,
-          })
-        ).isRequired,
-        publishedAt: PropTypes.instanceOf(Date).isRequired, // Add this line
-      };
+interface Content {
+    type: 'paragraph' | 'link';
+    content: string;
+}
 
-    const [comment, setComments] = useState([])
+interface PostProps {
+    author: Author;
+    publishedAt: Date;
+    content: Content[];
+}
+
+
+export function Post ({ author, publishedAt, content }: PostProps) {
+
+    const [comment, setComments] = useState([
+        'Post incrível!',
+    ])
 
     const [newCommentText, setNewCommentText] = useState('')
 
@@ -36,19 +40,19 @@ export function Post ({ author, publishedAt, content }) {
         addSuffix: true,
     });
 
-    function handleCreateComment() {
+    function handleCreateComment(event: FormEvent) {
         event.preventDefault()
 
         setComments([...comment, newCommentText])
         setNewCommentText('')
     }
 
-    function handleNewCommentChange() {
+    function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
         event.target.setCustomValidity('')
         setNewCommentText(event.target.value);
     }
 
-    function deleteComment(commentToDelete) {
+    function deleteComment(commentToDelete: string) {
         const commentsWithoutDeletedOne = comment.filter(comment => {
             return comment !== commentToDelete;
         })
@@ -56,7 +60,7 @@ export function Post ({ author, publishedAt, content }) {
         setComments(commentsWithoutDeletedOne);
     }
 
-    function handleNewCommentInvalid() {
+    function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
         event.target.setCustomValidity('')
     }
 

@@ -1,15 +1,14 @@
-import PropTypes from 'prop-types';
 import { ThumbsUp, Trash } from 'phosphor-react';
 import styles from './Comment.module.css';
 import { Avatar } from './Avatar';
 import { useState } from 'react';
 
-export function Comment({ content, onDeleteComment }) {
+interface CommentProps {
+    content: string;
+    onDeleteComment: (comment: string) => void;
+}
 
-    Comment.propTypes = {
-        content: PropTypes.string.isRequired,
-        onDeleteComment: PropTypes.func.isRequired, // Add this line
-      };
+export function Comment({ content, onDeleteComment }: CommentProps) {
 
     const [likeCount, setLikeCount] = useState(0);
 
@@ -23,7 +22,11 @@ export function Comment({ content, onDeleteComment }) {
 
     return (
         <div className={styles.comment}>
-            <Avatar hasBorder={false} src="https://github.com/Fontan4.png" />
+            <Avatar 
+                hasBorder={false} 
+                src="https://github.com/Fontan4.png" 
+                alt=''
+            />
 
             <div className={styles.commentBox}>
                 <div className={styles.commentContent}>
