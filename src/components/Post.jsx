@@ -23,9 +23,7 @@ export function Post ({ author, publishedAt, content }) {
         publishedAt: PropTypes.instanceOf(Date).isRequired, // Add this line
       };
 
-    const [comment, setComments] = useState([
-        'Post muito bacana, viu?'
-    ])
+    const [comment, setComments] = useState([])
 
     const [newCommentText, setNewCommentText] = useState('')
 
