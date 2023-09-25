@@ -8,6 +8,21 @@ import PropTypes from 'prop-types';
 
 export function Post ({ author, publishedAt, content }) {
 
+    Post.propTypes = {
+        author: PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          role: PropTypes.string.isRequired,
+          avatarUrl: PropTypes.string,
+        }).isRequired,
+        content: PropTypes.arrayOf(
+          PropTypes.shape({
+            type: PropTypes.string.isRequired,
+            content: PropTypes.string.isRequired,
+          })
+        ).isRequired,
+        publishedAt: PropTypes.instanceOf(Date).isRequired, // Add this line
+      };
+
     const [comment, setComments] = useState([
         'Post muito bacana, viu?'
     ])

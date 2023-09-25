@@ -1,9 +1,15 @@
+import PropTypes from 'prop-types';
 import { ThumbsUp, Trash } from 'phosphor-react';
 import styles from './Comment.module.css';
 import { Avatar } from './Avatar';
 import { useState } from 'react';
 
 export function Comment({ content, onDeleteComment }) {
+
+    Comment.propTypes = {
+        content: PropTypes.string.isRequired,
+        onDeleteComment: PropTypes.func.isRequired, // Add this line
+      };
 
     const [likeCount, setLikeCount] = useState(0);
 
